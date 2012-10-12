@@ -259,5 +259,14 @@ module CarrierWave
       raise CarrierWave::ProcessingError, I18n.translate(:"errors.messages.mini_magick_processing_error", :e => e)
     end
 
+    # Strips out all embedded information from the image
+    def strip
+      manipulate! do |img|
+        img.strip
+        img = yield(img) if block_given?
+        img
+      end
+    end
+
   end # MiniMagick
 end # CarrierWave
