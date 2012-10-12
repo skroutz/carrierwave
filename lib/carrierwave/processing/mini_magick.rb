@@ -252,7 +252,9 @@ module CarrierWave
       image = ::MiniMagick::Image.open(current_path)
       image = yield(image)
       image.write(current_path)
-      ::MiniMagick::Image.open(current_path)
+      image.destroy!
+
+      :manipulate_return_value
     rescue ::MiniMagick::Error, ::MiniMagick::Invalid => e
       raise CarrierWave::ProcessingError, I18n.translate(:"errors.messages.mini_magick_processing_error", :e => e)
     end
