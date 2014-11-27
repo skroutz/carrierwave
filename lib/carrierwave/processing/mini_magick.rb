@@ -249,10 +249,11 @@ module CarrierWave
     #
     def manipulate!
       cache_stored_file! if !cached?
-      image = ::MiniMagick::Image.open(current_path)
-      image = yield(image)
-      image.write(current_path)
-      image.destroy!
+      image = ::MiniMagick::Image.new(current_path)
+      modified = yield(image)
+      if modified != image
+        raise "Different image returned"
+      end
 
       :manipulate_return_value
     rescue ::MiniMagick::Error, ::MiniMagick::Invalid => e
