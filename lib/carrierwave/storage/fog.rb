@@ -314,12 +314,15 @@ module CarrierWave
           else
             fog_file = new_file.to_file
             @content_type ||= new_file.content_type
-            @file = directory.files.create({
+            fog_metadata = @uploader.fog_attributes.delete(:metadata) || {}
+            @file = directory.files.new({
               :body         => (fog_file ? fog_file : new_file).read,
               :content_type => @content_type,
               :key          => path,
               :public       => @uploader.fog_public
             }.merge(@uploader.fog_attributes))
+            @file.metadata.merge!(fog_metadata)
+            @file.save
             fog_file.close if fog_file && !fog_file.closed?
           end
           true
