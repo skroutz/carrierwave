@@ -121,6 +121,13 @@ u.avatar.current_path # => 'path/to/file.png'
 u.avatar_identifier # => 'file.png'
 ```
 
+#### Carrierwave / ActiveRecord flows
+
+Below is a diagram of the Carrierwave and ActiveRecord flows when assigning the file to the
+attribute (first line) and then when saving the model (second line).
+
+![Carrierwave Flows](carrierwave_flows.png?raw=true)
+
 ### DataMapper, Mongoid, Sequel
 
 Other ORM support has been extracted into separate gems:
