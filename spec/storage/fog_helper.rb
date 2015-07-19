@@ -175,6 +175,18 @@ end
             @fog_file.delete
             @directory.files.head(store_path).should == nil
           end
+
+          context "when the files has been deleted" do
+            before do
+              @fog_file.delete
+            end
+
+            it "does not blow up" do
+              expect {
+                @fog_file.size
+              }.not_to raise_error
+            end
+          end
         end
 
         describe '#retrieve!' do
