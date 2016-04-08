@@ -182,7 +182,8 @@ module CarrierWave
         end
 
         def store_previous_changes_for_#{column}
-          @_previous_changes_for_#{column} = changes[_mounter(:#{column}).serialization_column]
+          ch = changes.symbolize_keys
+          @_previous_changes_for_#{column} = ch[_mounter(:#{column}).serialization_column]
         end
 
         def remove_previously_stored_#{column}
@@ -332,7 +333,8 @@ module CarrierWave
         end
 
         def store_previous_changes_for_#{column}
-          @_previous_changes_for_#{column} = changes[_mounter(:#{column}).serialization_column]
+          ch = changes.symbolize_keys
+          @_previous_changes_for_#{column} = ch[_mounter(:#{column}).serialization_column]
         end
 
         def remove_previously_stored_#{column}
