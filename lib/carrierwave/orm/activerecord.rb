@@ -58,6 +58,8 @@ module CarrierWave
       after_commit :"mark_remove_#{column}_false", :on => :update
 
       after_save :"store_previous_changes_for_#{column}"
+      after_save :"invalidate_memoized_filename_for_#{column}"
+      after_save :"remove_original_filename_for_#{column}"
       after_commit :"remove_previously_stored_#{column}", :on => :update
 
       class_eval <<-RUBY, __FILE__, __LINE__+1
@@ -93,6 +95,14 @@ module CarrierWave
         def initialize_dup(other)
           @_mounters = nil
           super
+        end
+
+        def invalidate_memoized_filename_for_#{column}
+          send(:instance_variable_set, :"@#{column}_regularized_filename", nil)
+        end
+
+        def remove_original_filename_for_#{column}
+          _mounter(:#{column}).uploaders.each { |u| u.send(:original_filename=, nil) }
         end
       RUBY
     end
