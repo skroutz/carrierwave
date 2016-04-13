@@ -9,7 +9,7 @@ module CarrierWave
         class_attribute :processors, :instance_writer => false
         self.processors = []
 
-        before :cache, :process!
+        after :cache, :process!
       end
 
       module ClassMethods

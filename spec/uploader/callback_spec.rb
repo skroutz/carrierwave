@@ -8,8 +8,7 @@ describe CarrierWave::Uploader do
       :check_extension_blacklist!,
       :check_content_type_whitelist!,
       :check_content_type_blacklist!,
-      :check_size!,
-      :process!
+      :check_size!
     ]
     @uploader_class_1 = Class.new(CarrierWave::Uploader::Base)
 
