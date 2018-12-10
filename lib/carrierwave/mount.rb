@@ -182,8 +182,7 @@ module CarrierWave
         end
 
         def store_previous_changes_for_#{column}
-          ch = ::ActiveRecord.version.to_s.to_f >= 5.1 ? saved_changes : changes
-          ch = ch.symbolize_keys
+          ch = changes.symbolize_keys
           @_previous_changes_for_#{column} = ch[_mounter(:#{column}).serialization_column]
         end
 
@@ -334,8 +333,7 @@ module CarrierWave
         end
 
         def store_previous_changes_for_#{column}
-          ch = ::ActiveRecord.version.to_s.to_f >= 5.1 ? saved_changes : changes
-          ch = ch.symbolize_keys
+          ch = changes.symbolize_keys
           @_previous_changes_for_#{column} = ch[_mounter(:#{column}).serialization_column]
         end
 

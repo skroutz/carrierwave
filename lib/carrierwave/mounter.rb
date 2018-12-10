@@ -134,8 +134,6 @@ module CarrierWave
           value
         end
       end
-
-      after ||= []
       after_paths = after.reject(&:blank?).map do |value|
         if value.is_a?(String)
           uploader = blank_uploader
